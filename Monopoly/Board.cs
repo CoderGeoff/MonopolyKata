@@ -1,14 +1,21 @@
 using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
 
 namespace Monopoly
 {
-    public static class Board
+    public class Board
     {
-        public static IEnumerable<BoardSquare> Squares { get; private set; }
+        private static readonly BoardSquare[] s_Squares;
+
+        public static IEnumerable<BoardSquare> Squares { get { return s_Squares; } }
+
+        public BoardSquare this[string name] { get { return Squares.First(square => square.Name == name); } }
+        public BoardSquare this[int index] { get { return s_Squares[index]; } }
 
         static Board()
         {
-            Squares = new BoardSquare[]
+            s_Squares = new BoardSquare[]
             {
                 new BoardSquare("Go"),
                 new BoardSquare("Old Kent Road"),
@@ -50,6 +57,15 @@ namespace Monopoly
                 new BoardSquare("Super Tax"),
                 new BoardSquare("Mayfair")
             };
+        }
+    }
+
+    public class BoardTests
+    {
+        [Test]
+        public void GoShouldBeFirstSquare()
+        {
+            Assert.That(new Board()[0].Name, Is.EqualTo("Go"));
         }
     }
 }
