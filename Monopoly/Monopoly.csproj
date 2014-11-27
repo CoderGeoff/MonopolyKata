@@ -44,11 +44,14 @@
   <ItemGroup>
     <Compile Include="Board.cs" />
     <Compile Include="BoardState.cs" />
+    <Compile Include="CurrentGame.cs" />
+    <Compile Include="CurrentGameTests.cs" />
     <Compile Include="CurrentGameWriter.cs" />
     <Compile Include="ICurrentGame.cs" />
     <Compile Include="IDice.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="BoardSquare.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
