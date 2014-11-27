@@ -1,50 +1,7 @@
-﻿using System.Collections.Generic;
-using System.IO;
+using System.Collections.Generic;
 
 namespace Monopoly
 {
-    public interface ICurrentGame
-    {
-        ICurrentGame TakeNextTurn(IDice dice);
-        IPlayer NextPlayer { get; }
-        IEnumerable<IPlayer> Players { get; }
-    }
-
-    public interface IDice
-    {
-        int Throw();
-    }
-
-    public interface IPlayer
-    {
-        BoardSquare CurrentSquare { get; }
-        string Name { get; }
-    }
-
-    public class BoardState
-    {
-
-    }
-
-    public class CurrentGameWriter
-    {
-        private readonly StreamWriter m_Writer;
-
-        public CurrentGameWriter(StreamWriter writer)
-        {
-            m_Writer = writer;
-        }
-
-        void Write(ICurrentGame game)
-        {
-            foreach (IPlayer player in game.Players)
-            {
-                var nextPlayerText = player == game.NextPlayer ? " and their go is next" : "";
-                m_Writer.WriteLine("Player {0} is on {1} {2}", player.Name, player.CurrentSquare.Name, nextPlayerText);
-            }
-        }
-    }
-
     public static class Board
     {
         public static IEnumerable<BoardSquare> Squares { get; private set; }
@@ -94,11 +51,5 @@ namespace Monopoly
                 new BoardSquare("Mayfair")
             };
         }
-    }
-
-    public class BoardSquare
-    {
-        public BoardSquare(string name) { Name = name; }
-        public string Name { get; private set; }
     }
 }
