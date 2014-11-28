@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,22 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Board.cs" />
-    <Compile Include="BoardTests.cs" />
-    <Compile Include="CurrentGame.cs" />
-    <Compile Include="CurrentGameTests.cs" />
-    <Compile Include="CurrentGameWriter.cs" />
-    <Compile Include="CurrentPlayerState.cs" />
-    <Compile Include="ICurrentGame.cs" />
-    <Compile Include="ICurrentPlayerState.cs" />
-    <Compile Include="IDice.cs" />
-    <Compile Include="IPlayer.cs" />
-    <Compile Include="BoardSquare.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

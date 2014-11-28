@@ -1,24 +1,57 @@
-using System;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.IO;
 
 namespace Monopoly
 {
-    public class Board
+    public interface ICurrentGame
     {
-        #region Singleton
-        private static readonly Board s_TheBoard = new Board();
-        public static Board TheBoard { get { return s_TheBoard; } }
-        private Board() { }
-        #endregion
+        ICurrentGame TakeNextTurn(IDice dice);
+        IPlayer NextPlayer { get; }
+        IEnumerable<IPlayer> Players { get; }
+    }
 
-        private static readonly BoardSquare[] s_Squares;
+    public interface IDice
+    {
+        int Throw();
+    }
 
-        public BoardSquare this[string name] { get { return s_Squares.First(square => square.Name == name); } }
-        public BoardSquare this[int index] { get { return s_Squares[index]; } }
+    public interface IPlayer
+    {
+        BoardSquare CurrentSquare { get; }
+        string Name { get; }
+    }
+
+    public class BoardState
+    {
+
+    }
+
+    public class CurrentGameWriter
+    {
+        private readonly StreamWriter m_Writer;
+
+        public CurrentGameWriter(StreamWriter writer)
+        {
+            m_Writer = writer;
+        }
+
+        void Write(ICurrentGame game)
+        {
+            foreach (IPlayer player in game.Players)
+            {
+                var nextPlayerText = player == game.NextPlayer ? " and their go is next" : "";
+                m_Writer.WriteLine("Player {0} is on {1} {2}", player.Name, player.CurrentSquare.Name, nextPlayerText);
+            }
+        }
+    }
+
+    public static class Board
+    {
+        public static IEnumerable<BoardSquare> Squares { get; private set; }
 
         static Board()
         {
-            s_Squares = new BoardSquare[]
+            Squares = new BoardSquare[]
             {
                 new BoardSquare("Go"),
                 new BoardSquare("Old Kent Road"),
@@ -61,22 +94,11 @@ namespace Monopoly
                 new BoardSquare("Mayfair")
             };
         }
+    }
 
-        public static BoardSquare MoveFrom(BoardSquare origin, int distance)
-        {
-            int newIndex = FindIndexOf(origin) + distance;
-            if (newIndex < 0) newIndex += s_Squares.Length;
-            if (newIndex >= s_Squares.Length) newIndex -= s_Squares.Length;
-            return s_Squares[newIndex];
-        }
-
-        private static int FindIndexOf(BoardSquare origin)
-        {
-            for (int i = 0; i < s_Squares.Length; ++i)
-            {
-                if (origin == s_Squares[i]) return i;
-            }
-            throw new ArgumentException("Not found", "origin");
-        }
+    public class BoardSquare
+    {
+        public BoardSquare(string name) { Name = name; }
+        public string Name { get; private set; }
     }
 }
