@@ -47,7 +47,9 @@
     <Compile Include="CurrentGame.cs" />
     <Compile Include="CurrentGameTests.cs" />
     <Compile Include="CurrentGameWriter.cs" />
+    <Compile Include="CurrentPlayerState.cs" />
     <Compile Include="ICurrentGame.cs" />
+    <Compile Include="ICurrentPlayerState.cs" />
     <Compile Include="IDice.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="BoardSquare.cs" />

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -55,6 +56,23 @@ namespace Monopoly
                 new BoardSquare("Super Tax"),
                 new BoardSquare("Mayfair")
             };
+        }
+
+        public static BoardSquare MoveFrom(BoardSquare origin, int distance)
+        {
+            int newIndex = FindIndexOf(origin) + distance;
+            if (newIndex < 0) newIndex += s_Squares.Length;
+            if (newIndex >= s_Squares.Length) newIndex -= s_Squares.Length;
+            return s_Squares[newIndex];
+        }
+
+        private static int FindIndexOf(BoardSquare origin)
+        {
+            for (int i = 0; i < s_Squares.Length; ++i)
+            {
+                if (origin == s_Squares[i]) return i;
+            }
+            throw new ArgumentException("Not found", "origin");
         }
     }
 }

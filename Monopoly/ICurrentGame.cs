@@ -4,8 +4,9 @@ namespace Monopoly
 {
     public interface ICurrentGame
     {
-        ICurrentGame TakeNextTurn(IDice dice);
+        ICurrentGame TakeTurn(IDice dice);
         IPlayer NextPlayer { get; }
         IEnumerable<IPlayer> Players { get; }
+        ICurrentPlayerState GetCurrentState(IPlayer player);
     }
 }
