@@ -10,14 +10,5 @@ namespace Monopoly
         {
             m_Writer = writer;
         }
-
-        void Write(ICurrentGame game)
-        {
-            foreach (IPlayer player in game.Players)
-            {
-                var nextPlayerText = player == game.NextPlayer ? " and their go is next" : "";
-                m_Writer.WriteLine("Player {0} is on {1} {2}", player.Name, player.CurrentSquare.Name, nextPlayerText);
-            }
-        }
     }
 }

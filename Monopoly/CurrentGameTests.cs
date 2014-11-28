@@ -10,7 +10,7 @@ namespace Monopoly
         public void AllPlayersShouldStartOnGo()
         {
             var game = new CurrentGame(playerCount: 3);
-            var playerSquares = game.Players.Select(player => player.CurrentSquare.Name).Distinct();
+            var playerSquares = game.Players.Select(player => game.GetCurrentState(player).CurrentSquare.Name).Distinct();
             Assert.That(playerSquares, Is.EquivalentTo(new[]{"Go"}));
         }
 
@@ -45,12 +45,12 @@ namespace Monopoly
         public void ThrowingShouldMovePlayerAroundBoard()
         {
             const int maxPlayers = 6;
-            var game = new CurrentGame(playerCount: maxPlayers);
-            var player = game.NextPlayer;
-            game.TakeNextTurn(new TestDice(4));
-            Assert.That(player.CurrentSquare == new Board()[4]);
+            var beforeTurn = new CurrentGame(playerCount: maxPlayers);
+            var player = beforeTurn.NextPlayer;
+            ICurrentGame afterTurn = beforeTurn.TakeTurn(new TestDice(4));
+            ICurrentPlayerState playerState = afterTurn.GetCurrentState(player);
+            Assert.That(playerState.CurrentSquare, Is.EqualTo(new Board()[4]));
         }
-
 
         class TestDice : IDice
         {
