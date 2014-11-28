@@ -1,15 +1,19 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Monopoly
 {
     public class Board
     {
-        private static readonly BoardSquare[] s_Squares;
-        public static IEnumerable<BoardSquare> Squares { get { return s_Squares; } }
+        #region Singleton
+        private static readonly Board s_TheBoard = new Board();
+        public static Board TheBoard { get { return s_TheBoard; } }
+        private Board() { }
+        #endregion
 
-        public BoardSquare this[string name] { get { return Squares.First(square => square.Name == name); } }
+        private static readonly BoardSquare[] s_Squares;
+
+        public BoardSquare this[string name] { get { return s_Squares.First(square => square.Name == name); } }
         public BoardSquare this[int index] { get { return s_Squares[index]; } }
 
         static Board()

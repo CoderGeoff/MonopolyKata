@@ -20,7 +20,7 @@ namespace Monopoly
             for (int i = 0; i < playerCount; ++i)
             {
                 var player = new Player(pieces.Dequeue());
-                var playerState = new CurrentPlayerState(new Board()["Go"]);
+                var playerState = new CurrentPlayerState(Board.TheBoard["Go"]);
                 m_PlayerStates[i] = new Tuple<IPlayer, ICurrentPlayerState>(player, playerState);
                 m_NextPlayer = m_NextPlayer ?? player;
             }

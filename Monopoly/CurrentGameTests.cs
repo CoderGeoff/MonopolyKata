@@ -49,7 +49,7 @@ namespace Monopoly
             var player = beforeTurn.NextPlayer;
             ICurrentGame afterTurn = beforeTurn.TakeTurn(new TestDice(4));
             ICurrentPlayerState playerState = afterTurn.GetCurrentState(player);
-            Assert.That(playerState.CurrentSquare, Is.EqualTo(new Board()[4]));
+            Assert.That(playerState.CurrentSquare, Is.EqualTo(Board.TheBoard[4]));
         }
 
         class TestDice : IDice
